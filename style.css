@@ -187,8 +187,8 @@ button{ font-family: inherit; cursor: pointer; }
   position: relative;
 }
 
-/* Only the opening screen is shown first; others are revealed by JS via .is-active */
-.screen:not(.screen--opening){
+/* All screens are hidden by default; only .is-active shows. */
+.screen{
   display: none;
 }
 .screen.is-active{
