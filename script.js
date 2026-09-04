@@ -28,15 +28,19 @@
    * Reveals every reveal-able element inside a screen, one after another,
    * with a gentle stagger. Elements: .line-reveal / .reveal-line / .ghost-btn
    */
-  function playRevealSequence(screenEl, { startDelay = 200, gap = 550 } = {}) {
+  function playRevealSequence(screenEl, { startDelay = 100, gap = 60, maxTotal = 700 } = {}) {
     const targets = [...screenEl.querySelectorAll('.line-reveal, .reveal-line, .ghost-btn')];
     if (prefersReducedMotion) {
       targets.forEach(el => el.classList.add('is-shown'));
       return;
     }
+    // Cap the total stagger duration regardless of how many lines a screen has,
+    // so the whole reveal always finishes quickly right after the screen
+    // becomes active (tied to the button click), never mid-scroll.
+    const effectiveGap = targets.length > 1 ? Math.min(gap, maxTotal / (targets.length - 1)) : gap;
     targets.forEach((el, i) => {
-      const extra = el.classList.contains('ghost-btn') ? 300 : 0; // small pause before CTA
-      window.setTimeout(() => el.classList.add('is-shown'), startDelay + i * gap + extra);
+      const extra = el.classList.contains('ghost-btn') ? 150 : 0; // tiny pause before CTA
+      window.setTimeout(() => el.classList.add('is-shown'), startDelay + i * effectiveGap + extra);
     });
   }
 
@@ -59,6 +63,10 @@
       to.classList.add('is-active');
       currentIndex = targetIndex;
       setProgress(targetIndex);
+      // Always land at the top of the new screen so its content is in view
+      // immediately, instead of leaving the user at whatever scroll position
+      // the previous screen was at.
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
       playRevealSequence(to);
       intensifyAmbience(targetIndex);
     };
