@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>For My Akka — Happy Teachers' Day</title>
+
+<!-- Google Fonts: Playfair Display (headlines) + Cormorant Garamond (accent) + Inter (UI) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ================= AMBIENT LAYERS (behind everything) ================= -->
+<div class="ambient" aria-hidden="true">
+  <div class="glow glow--one"></div>
+  <div class="glow glow--two"></div>
+  <canvas id="particle-canvas"></canvas>
+  <div id="petal-layer"></div>
+  <div class="grain"></div>
+</div>
+
+<!-- ================= SECTION INDICATOR ================= -->
+<div class="progress-rail" id="progressRail" aria-hidden="true">
+  <span class="progress-dot" data-index="0"></span>
+  <span class="progress-dot" data-index="1"></span>
+  <span class="progress-dot" data-index="2"></span>
+  <span class="progress-dot" data-index="3"></span>
+  <span class="progress-dot" data-index="4"></span>
+</div>
+
+
+<main id="app">
+
+  <!-- ================= 0. OPENING SCREEN ================= -->
+  <section class="screen screen--opening" id="opening" data-screen="0">
+    <div class="opening-inner">
+      <p class="opening-eyebrow">a small letter, for a big person</p>
+      <h1 class="opening-title">I made something<br><em>special</em> for you&hellip;</h1>
+      <button class="begin-btn" id="beginBtn" type="button">
+        <span class="begin-btn__ring"></span>
+        <span class="begin-btn__label">Tap to begin<span class="spark">✨</span></span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ================= 1. TEACHER ================= -->
+  <section class="screen screen--teacher" id="teacher" data-screen="1">
+    <div class="teacher-scene" aria-hidden="true">
+      <div class="book book--a"></div>
+      <div class="book book--b"></div>
+      <div class="pen"></div>
+      <div class="symbol symbol--star">✦</div>
+      <div class="symbol symbol--star symbol--star2">✧</div>
+    </div>
+
+    <div class="card glass" id="teacherCard">
+      <h2 class="reveal-line headline">Happy Teachers&rsquo; Day <span class="petal-emoji">🌸</span></h2>
+      <p class="reveal-line sub" data-delay="1">To a teacher who inspires, guides, and makes learning meaningful&hellip;</p>
+
+      <div class="line-block" id="teacherLines">
+        <p class="line-reveal" data-line>A great teacher doesn&rsquo;t just teach lessons&hellip;</p>
+        <p class="line-reveal" data-line>They leave lessons in our lives.</p>
+        <p class="line-reveal line-reveal--long" data-line>Thank you for every lesson, every correction, every encouragement, and every little moment that helped me become better.</p>
+      </div>
+
+      <button class="ghost-btn" id="toSorryBtn" type="button">
+        <span>There&rsquo;s something I need to say&hellip;</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ================= 2. THE SORRY ================= --> 
+   <section class="screen screen--sorry" id="sorry" data-screen="2"> 
+    <div class="card glass card--dim" id="sorryCard"> <!-- Opening --> 
+        <p class="line-reveal" data-line> Wait&hellip; before I continue. </p> 
+        <p class="line-reveal" data-line> There is actually something I&rsquo;ve been wanting to say. </p> 
+        <!-- Main Apology --> <h2 class="im-sorry line-reveal" id="imSorry" data-line> I&rsquo;m Sorry. <span class="heart-mark">❤</span> 
+        </h2> <!-- Personal Apology --> <div class="line-block" id="sorryLines"> 
+            <p class="line-reveal" data-line> Sorry for the little moments when I may have disappointed you&hellip; </p> 
+            <p class="line-reveal" data-line> Sorry for the times when I could have done a little better&hellip; </p>
+             <p class="line-reveal" data-line> Sorry for the moments when I didn&rsquo;t understand what you were trying to tell me&hellip; </p> 
+             <p class="line-reveal" data-line> And sorry for every little thing I may have done without realizing how it felt to you. </p> </div> <!-- Emotional Pause --> 
+             <p class="line-reveal whisper" data-line> Maybe these were only little things&hellip; </p> <p class="line-reveal whisper" data-line> But I still wanted to say it. </p> <!-- Sincere Apology -->
+              <p class="line-reveal sincere-apology" data-line> I&rsquo;m truly sorry. <span class="heart-mark">❤</span> </p> <!-- Suspense -->
+               <p class="line-reveal whisper reveal-hint" data-line> But that&rsquo;s not the whole reason I said sorry&hellip; </p>
+                <p class="line-reveal whisper reveal-hint" data-line> There&rsquo;s something much more important I want you to know. </p> <!-- Continue Button --> 
+                <button class="ghost-btn" id="toRevealBtn" type="button"> <span>One last thing&hellip;</span> </button> </div> </section>
+
+  <!-- ================= TRANSITION FLASH (climax) ================= -->
+  <div class="climax-flash" id="climaxFlash" aria-hidden="true"></div>
+
+  <!-- ================= 3. THE AKKA REVEAL ================= -->
+  <section class="screen screen--reveal" id="reveal" data-screen="3">
+    <div class="card glass card--radiant" id="revealCard">
+      <p class="line-reveal soft" data-line>Because today&hellip;</p>
+      <p class="line-reveal soft" data-line>I don&rsquo;t want to wish you only as my teacher.</p>
+
+      <h2 class="akka-title line-reveal" id="akkaTitle" data-line>
+        I want to wish you as my <span class="akka-word">AKKA</span> <span class="heart-mark">❤</span>
+      </h2>
+
+      <div class="line-block" id="revealLines">
+        <p class="line-reveal" data-line>You are not just someone who teaches me.</p>
+        <p class="line-reveal" data-line>You are someone who guides me.</p>
+        <p class="line-reveal" data-line>Someone who corrects me.</p>
+        <p class="line-reveal" data-line>Someone who supports me.</p>
+        <p class="line-reveal" data-line>Someone I can look up to.</p>
+      </div>
+
+      <p class="line-reveal emphasis" data-line>And that makes you much more special to me.</p>
+
+      <button class="ghost-btn" id="toFinalBtn" type="button">
+        <span>See my final wish</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ================= 4. FINAL WISH ================= -->
+  <section class="screen screen--final" id="final" data-screen="4">
+    <div class="card glass card--final" id="finalCard">
+      <h2 class="final-heading line-reveal" data-line>Happy Teachers&rsquo; Day, Akka <span class="heart-mark">❤</span></h2>
+
+      <div class="line-block" id="finalLines">
+        <p class="line-reveal" data-line>Thank you for being my teacher.</p>
+        <p class="line-reveal" data-line>Thank you for being my guide.</p>
+        <p class="line-reveal" data-line>And most importantly&hellip;</p>
+        <p class="line-reveal emphasis" data-line>Thank you for being my Akka. <span class="petal-emoji">🌸</span></p>
+      </div>
+
+      <div class="heart-beat" aria-hidden="true">♥</div>
+
+      <div class="line-block" id="closingLines">
+        <p class="line-reveal" data-line>Some people teach us lessons.</p>
+        <p class="line-reveal" data-line>Some people become part of our lives.</p>
+        <p class="line-reveal emphasis" data-line>You&rsquo;re both.</p>
+      </div>
+
+      <p class="line-reveal signoff" data-line>With lots of respect, gratitude &amp; love <span class="heart-mark">❤</span></p>
+      <p class="line-reveal signoff signoff--big" data-line>Happy Teachers&rsquo; Day, Akka!</p>
+
+      <footer class="made-for-you line-reveal" data-line>Made with <span class="heart-mark">❤</span> just for you.</footer>
+    </div>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
